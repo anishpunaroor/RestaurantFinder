@@ -11,7 +11,7 @@ MongoClient.connect(
     process.env.RESTFINDER_DB_URI, 
     {
         maxPoolSize: 50, 
-        wtimeout: 2500, 
+        wtimeoutMS: 2500, 
         useNewUrlParser: true }
     )
     // Check and record any errors
