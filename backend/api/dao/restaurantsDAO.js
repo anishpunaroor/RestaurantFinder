@@ -16,6 +16,7 @@ export default class RestaurantsDAO {
         }
     }
 
+    // Query behavior 
     static async getRestaurants({
         filters = null, 
         page = 0, 
@@ -32,8 +33,20 @@ export default class RestaurantsDAO {
             }
         }
 
-        
+        // Display results
+        let cursor
 
+        try {
+            cursor = await restaurants
+                .find(query)
+        } catch (e) {
+            console.error(`Unable to issue find command, ${e}`)
+            return { restaurantsList: [], totalNumRestaurants: 0 }
+        }
+
+        const displayCursor = cursor.limit(restaurantsPerPage).skip(restaurantsPerPage * page)
+
+        
     }
 
 }
