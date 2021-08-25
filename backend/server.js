@@ -10,3 +10,5 @@ app.use(express.json())
 app.use("/api/v1/restaurants", restaurants)
 // Return 404 not found if wrong API is used
 app.use("*", (req, res) => res.status(404).json({ error: "not found"}))
+
+export default app
