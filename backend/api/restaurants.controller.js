@@ -15,7 +15,18 @@ export default class RestaurantsController {
         }
 
         const { restaurantsList, totalNumRestaurants } = await RestaurantsDAO.getRestaurants({
-            
+            filters,
+            page,
+            restaurantsPerPage, 
         })
+
+        let response = {
+            restaurants: restaurantsList,
+            page: page, 
+            filters: filters, 
+            entries_per_page: restaurantsPerPage,
+            total_results: totalNumRestaurants,
+        }
+        res.json(response)
     }
 }
