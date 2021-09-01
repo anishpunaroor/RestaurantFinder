@@ -24,7 +24,7 @@ export default class ReviewsController {
             res.status(500).json({ error: e.message })
         }
     }
-    
+
     // Users can update their own reviews 
     static async apiUpdateReview(req, res, next) {
         try {
@@ -51,6 +51,22 @@ export default class ReviewsController {
             }
 
             res.json({ status: "success" })   
+        } catch (e) {
+            res.status(500).json({ error: e.message })
+        }
+    }
+
+    static async apiDeleteReview(req, res, next) {
+        try {
+            const reviewId = req.query._id
+            const userId = req.body.user_id
+            console.log(reviewId)
+            const reviewResponse = await ReviewsDAO.apiDeleteReview(
+                reviewId,
+                userId,
+            )
+
+            res.json({ status: "success" })
         } catch (e) {
             res.status(500).json({ error: e.message })
         }
