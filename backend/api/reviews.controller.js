@@ -13,7 +13,7 @@ export default class ReviewsController {
             }
             const date = new Date()
 
-            const Review Response = await ReviewsDAO.addReview(
+            const ReviewResponse = await ReviewsDAO.addReview(
                 restaurantId,
                 userInfo,
                 review,
@@ -32,7 +32,7 @@ export default class ReviewsController {
             const text = req.body.text 
             const date = new Date() 
 
-            const review Response = await ReviewsDAO.updateReview(
+            const reviewResponse = await ReviewsDAO.updateReview(
                 reviewId,
                 req.body.user_id,
                 text, 
