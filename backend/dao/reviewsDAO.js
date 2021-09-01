@@ -16,7 +16,7 @@ export default class ReviewsDAO {
         }
     }
 
-    // Add a review to the collection, store in database
+    // Add a review to the collection, store in databaseA
     static async addReview(restaurantId, user, review, date) {
         try {
             const reviewDoc = { 
@@ -29,6 +29,19 @@ export default class ReviewsDAO {
             return await reviews.insertOne(reviewDoc)
         } catch (e) {
             console.error(`Unable to post review: ${e}`)
+            return { error: e }
+        }
+    }
+
+    static async updateReview(reviewId, userId, text, date) {
+        try {
+            const updateResponse = await reviews.updateOne(
+                { user_id: userId, _id: ObjectId(reviewId)}, 
+                { $set: { text: text, date: date } }, 
+            )
+            return updateResponse
+        } catch (e) {
+            console.error(`Unable to update review: ${e}`)
             return { error: e }
         }
     }
