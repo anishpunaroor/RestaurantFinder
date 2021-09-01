@@ -1,7 +1,8 @@
 import ReviewsDAO from "../dao/reviewsDAO.js"
 
-// Allow users to post reviews of restaurants to the website
+
 export default class ReviewsController {
+    // Allow users to post reviews of restaurants
     static async apiPostReview(req, res, next) {
         try {
             const restaurantId = req.body.restaurant_id
@@ -20,6 +21,37 @@ export default class ReviewsController {
             )
             res.json({status: "success" })
         } catch (e){
+            res.status(500).json({ error: e.message })
+        }
+    }
+    
+    // Users can update their own reviews 
+    static async apiUpdateReview(req, res, next) {
+        try {
+            const reviewId = req.body.review_id
+            const text = req.body.text 
+            const date = new Date() 
+
+            const review Response = await ReviewsDAO.updateReview(
+                reviewId,
+                req.body.user_id,
+                text, 
+                date,
+            )
+            
+            var { error } = reviewResponse
+            if (error) {
+                res.status(400).json({ error })
+            }
+
+            if (reviewsResponse.modifiedCount === 0) {
+                throw new Error(
+                    "Unable to update review, user may not be the original poster."
+                )
+            }
+
+            res.json({ status: "success" })   
+        } catch (e) {
             res.status(500).json({ error: e.message })
         }
     }
